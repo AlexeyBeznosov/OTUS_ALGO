@@ -1,0 +1,65 @@
+<input> 10 3 2 5 7 4 8 6 1 7 3
+;r0 -work
+;r1 - N
+;r2 - i
+;r3 - k
+;r4 - empty
+;r5 - array
+read 1
+load =5
+store 2
+loopRead:
+    read *2
+    load 2
+    add =1
+    store 2
+    sub 1
+    sub =5
+jz loopReadFinish 
+jmp loopRead
+loopReadFinish:
+load =4
+store 2
+loopSortI:
+    load 2
+    add =1
+    store 2
+    sub 1
+    sub =4
+    jz sortFinish
+    load 2
+    add =1
+    store 3   
+    loopSortK:
+        load *3
+        sub *2
+        jgtz skip
+         load *3
+         store 4
+         load *2
+         store *3
+         load 4
+         store *2
+        skip:
+        load 3
+        sub 1
+        sub =4
+        jz loopSortI
+        load 3
+        add =1
+        store 3
+        jmp loopSortK        
+sortFinish:
+load =5
+store 2
+loopWrite:    
+    write *2
+    load 2
+    add =1
+    store 2
+    sub 1
+    sub =5     
+    jz loopWriteFinish 
+    jmp loopWrite
+loopWriteFinish:
+halt

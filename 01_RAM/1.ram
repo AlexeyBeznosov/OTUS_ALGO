@@ -1,0 +1,29 @@
+<input> 1 6
+;r0 - work
+;r1 - 1 number
+;r2 - 2 number
+;r3 - mult
+read 1
+read 2
+load 1
+sub 2
+jgtz loopEx
+ load 1
+ store 3
+ load 2
+ store 1
+ load 3
+ store 2
+loopEx:
+load =0
+store 3
+loop:    
+    load 3
+    add 1
+    store 3
+    load 2
+    sub =1
+    store 2
+    jgtz loop
+write 3
+halt
