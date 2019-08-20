@@ -1,5 +1,6 @@
 Random array
---;--;--;
+
+---|---:|---:|
 шаг 10|InsertionSort|ShellSort
 1000|0|0
 10000|32|31
