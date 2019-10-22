@@ -1,37 +1,30 @@
+import storage.Queue;
 
 public class QuickSort implements ISort {
 
     @Override
     public void sort(int[] arr) {
-        int[] pointers = new int[arr.length * 2];
-        int pointer = 0;
-        pointers[pointer] = 0;
-        pointers[pointer + 1] = arr.length - 1;
-        int tail = 2;
-        do {
-            int in = pointers[pointer];
-            int out = pointers[pointer + 1];
+        Queue<Pointer> queue = new Queue<Pointer>();
+        Pointer p = new Pointer(0, arr.length - 1);
+        queue.enqueue(p);
+        while ((p = queue.dequeue()) != null) {
+            int in = p.getBegin();
+            int out = p.getEnd();
             int splitIndex = splitArray(arr, in, out, 0);
             if (splitIndex == out) {
                 splitIndex = splitArray(arr, in, out, 1);
             }
-            pointer += 2;
             if (splitIndex == out) {
                 insertSort(arr, in, out);
             } else {
                 if (splitIndex == in) {
-                    pointers[tail] = splitIndex + 1;
-                    pointers[tail + 1] = out;
-                    tail += 2;
+                    queue.enqueue(new Pointer(splitIndex + 1, out));
                 } else {
-                    pointers[tail] = in;
-                    pointers[tail + 1] = splitIndex;
-                    pointers[tail + 2] = splitIndex + 1;
-                    pointers[tail + 3] = out;
-                    tail += 4;
+                    queue.enqueue(new Pointer(in, splitIndex));
+                    queue.enqueue(new Pointer(splitIndex + 1, out));
                 }
             }
-        } while (pointer < tail);
+        }
     }
 
     private int splitArray(int[] arr, int in, int out, int method) {
